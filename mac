@@ -1,22 +1,33 @@
-MACRC_PATH="$(cd "$(dirname "$0")"; pwd -P)" # the location of this script
-MACRC_LIB="$MACRC_PATH/lib"                  # things used by macrc
-MACRC_MODULES="$MACRC_PATH/modules"          # modularized setups
+export MAC_PATH="$(cd "$(dirname "$0")"; pwd -P)" # the location of this script
+MAC_LIB="$MAC_PATH/lib"                           # things used by macrc
+MAC_MODULES="$MAC_PATH/modules"                   # modularized setups
 
-source "$MACRC_LIB/utils.sh"
+lib() { source "$MAC_LIB/$1.sh"; }
 
-# ensure that a module is installed and
-# configured to be used
+lib 'utils'
+
+# ensure that a module is installed and configured to be used
 #
 module() {
   echo "module $1"
-  local module_path="$MACRC_MODULES/$1"
-  [ -d "$MACRC_MODULES" ]       || fail "no modules at $MACRC_MODULES"
-  [ -d "$module_path" ]    || fail "module $MACRC_MODULES/$1 does not exist!"
+  local module_path="$MAC_MODULES/$1"
+  [ -d "$MAC_MODULES" ] || fail "no modules at ($MAC_MODULES)"
+  [ -d "$module_path" ] || fail "module ($module_path) does not exist!"
   pushd "$module_path"
-  [ -x install ] && ./install || echo 'Nothing to install (or install file not executable)'
+
+  # 1) run any manual installation steps
+  [ -x install ] && ./install
+
+  # 2) brew up osx goodness
+  [ -f Brewfile ] && brew bundle --file="$module_path/Brewfile" || echo 'No Brewfile'
+
   popd
 }
 
-# to setup the machine, list the modules that apply
+# not required, but most things depend on homebrew
 
 module 'homebrew'
+
+# to setup the machine, list the modules that apply
+
+module 'vim'

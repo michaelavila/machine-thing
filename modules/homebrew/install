@@ -10,9 +10,7 @@ install_or_update_homebrew() {
 
 tap_brew_bundle() {
   brew tap | grep -q "homebrew/bundle"
-  if [ $? -eq 0 ]; then
-    echo "brew bundle already tapped"
-  else
+  if [ $? -eq 1 ]; then
     brew tap homewbrew/bundle
   fi
 }
