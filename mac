@@ -30,4 +30,5 @@ module 'homebrew'
 
 # to setup the machine, list the modules that apply
 
+module 'java'
 module 'vim'
