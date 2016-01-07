@@ -1,20 +1,22 @@
-MAC_MODULES=$HOME/.mac/modules
+MACRC_PATH="$(cd "$(dirname "$0")"; pwd -P)" # the location of this script
+MACRC_LIB="$MACRC_PATH/lib"                  # things used by macrc
+MACRC_MODULES="$MACRC_PATH/modules"          # modularized setups
 
-# a very small number of utilities, kept
-# out of 
-SCRIPTPATH="$(cd "$(dirname "$0")"; pwd -P)"
-source $SCRIPTPATH/lib/utils.sh
+source "$MACRC_LIB/utils.sh"
 
 # ensure that a module is installed and
 # configured to be used
 #
 module() {
   echo "module $1"
-  [ -d "$MAC_MODULES" ]       || fail "no modules at $MAC_MODULES"
-  [ -d "$MAC_MODULES/$1" ]    || fail "module $MAC_MODULES/$1 does not exist!"
-  pushd $MAC_MODULES/$1
-  [ -x install ] && ./install || echo "Nothing to install (or install file not executable)"
+  local module_path="$MACRC_MODULES/$1"
+  [ -d "$MACRC_MODULES" ]       || fail "no modules at $MACRC_MODULES"
+  [ -d "$module_path" ]    || fail "module $MACRC_MODULES/$1 does not exist!"
+  pushd "$module_path"
+  [ -x install ] && ./install || echo 'Nothing to install (or install file not executable)'
   popd
 }
 
 # to setup the machine, list the modules that apply
+
+module 'homebrew'

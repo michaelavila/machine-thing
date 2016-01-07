@@ -1,0 +1,21 @@
+install_or_update_homebrew() {
+  if ! command -v brew >/dev/null; then
+    echo "installing brew..."
+    curl -fsS 'https://git.io/pVOl' | ruby
+  else
+    echo "brew already installed"
+    brew update
+  fi
+}
+
+tap_brew_bundle() {
+  brew tap | grep -q "homebrew/bundle"
+  if [ $? -eq 0 ]; then
+    echo "brew bundle already tapped"
+  else
+    brew tap homewbrew/bundle
+  fi
+}
+
+install_or_update_homebrew
+tap_brew_bundle
