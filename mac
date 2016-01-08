@@ -15,11 +15,11 @@ module() {
   [ -d "$module_path" ] || fail "module ($module_path) does not exist!"
   pushd "$module_path"
 
-  # 1) run any manual installation steps
-  [ -x install ] && ./install
-
-  # 2) brew up osx goodness
+  # 1) brew up osx goodness
   [ -f Brewfile ] && brew bundle --file="$module_path/Brewfile"
+
+  # 2) run any manual installation steps
+  [ -x install ] && ./install
 
   popd
   echo "finished module: $1"
@@ -30,8 +30,10 @@ module() {
 module 'homebrew'
 
 # to setup the machine, list the modules that apply
-
+module 'dotfiles'
 module 'vim'
 
 module 'java'
 module 'sophos'
+
+rcup
