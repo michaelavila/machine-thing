@@ -1,10 +1,11 @@
 #!/usr/bin/env sh
 
 export MAC_PATH="$(cd "$(dirname "$0")"; pwd -P)" # the location of this script
-MAC_LIB="$MAC_PATH/lib"                           # things used by macrc
+export MAC_LIB="$MAC_PATH/lib"                           # things used by macrc
 MAC_MODULES="$MAC_PATH/modules"                   # modularized setups
 
 lib() { source "$MAC_LIB/$1.sh"; }
+export -f lib
 
 lib 'utils'
 lib 'colors'
@@ -12,7 +13,7 @@ lib 'colors'
 # ensure that a module is installed and configured to be used
 #
 module() {
-  echo "${Blu}starting module: ${BBlu}${1}${RCol}"
+  echo "\n${Blu}starting module: ${BBlu}${1}${RCol}"
   local module_path="${MAC_MODULES}/${1}"
   [ -d "${MAC_MODULES}" ] || fail "no modules at (${MAC_MODULES})"
   [ -d "${module_path}" ] || fail "module (${module_path}) does not exist!"
@@ -27,7 +28,6 @@ module() {
   [ -x install ] && [ $? -eq 0 ] && echo "* ${Pur}installed${RCol}"
 
   popd
-  echo "${Gre}finished module: ${BGre}${1}${RCol}"
 }
 
 # not required, but most things depend on homebrew
@@ -42,3 +42,5 @@ module 'vim'
 
 module 'java'
 module 'sophos'
+
+echo "\n${BGre}Your Mac is ready.${RCol}\n"

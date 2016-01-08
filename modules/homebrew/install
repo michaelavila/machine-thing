@@ -1,12 +1,15 @@
 #!/usr/bin/env sh
 
+lib "colors"
+
 install_or_update_homebrew() {
   if ! command -v brew >/dev/null; then
-    echo "installing brew..."
+    echo "${BBlue}installing brew...${RCol}"
     curl -fsS 'https://git.io/pVOl' | ruby
+    echo "${Pur}brew installed${RCol}"
   else
-    echo "brew already installed"
-    brew update
+    echo "${BPur}brew exists, updating${RCol}"
+    echo "${BPur}`brew update`${RCol}"
   fi
 }
 

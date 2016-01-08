@@ -1,14 +1,14 @@
-local pfx='\033['
-local sfx=''
+PFX='\033['
+SFX=''
 
-RCol="${pfx}0m${sfx}"    # Text Reset
+RCol="${PFX}0m${SFX}"    # Text Reset
 
 # Regular           	     Bold                         Underline                    High Intensity               BoldHigh Intens              Background                   High Intensity Backgrounds
-Bla="${pfx}0;30m${sfx}";     BBla="${pfx}1;30m${sfx}";    UBla="${pfx}4;30m${sfx}";    IBla="${pfx}0;90m${sfx}";    BIBla="${pfx}1;90m${sfx}";   On_Bla="${pfx}40m${sfx}";    On_IBla="${pfx}0;100m${sfx}";
-Red="${pfx}0;31m${sfx}";     BRed="${pfx}1;31m${sfx}";    URed="${pfx}4;31m${sfx}";    IRed="${pfx}0;91m${sfx}";    BIRed="${pfx}1;91m${sfx}";   On_Red="${pfx}41m${sfx}";    On_IRed="${pfx}0;101m${sfx}";
-Gre="${pfx}0;32m${sfx}";     BGre="${pfx}1;32m${sfx}";    UGre="${pfx}4;32m${sfx}";    IGre="${pfx}0;92m${sfx}";    BIGre="${pfx}1;92m${sfx}";   On_Gre="${pfx}42m${sfx}";    On_IGre="${pfx}0;102m${sfx}";
-Yel="${pfx}0;33m${sfx}";     BYel="${pfx}1;33m${sfx}";    UYel="${pfx}4;33m${sfx}";    IYel="${pfx}0;93m${sfx}";    BIYel="${pfx}1;93m${sfx}";   On_Yel="${pfx}43m${sfx}";    On_IYel="${pfx}0;103m${sfx}";
-Blu="${pfx}0;34m${sfx}";     BBlu="${pfx}1;34m${sfx}";    UBlu="${pfx}4;34m${sfx}";    IBlu="${pfx}0;94m${sfx}";    BIBlu="${pfx}1;94m${sfx}";   On_Blu="${pfx}44m${sfx}";    On_IBlu="${pfx}0;104m${sfx}";
-Pur="${pfx}0;35m${sfx}";     BPur="${pfx}1;35m${sfx}";    UPur="${pfx}4;35m${sfx}";    IPur="${pfx}0;95m${sfx}";    BIPur="${pfx}1;95m${sfx}";   On_Pur="${pfx}45m${sfx}";    On_IPur="${pfx}0;105m${sfx}";
-Cya="${pfx}0;36m${sfx}";     BCya="${pfx}1;36m${sfx}";    UCya="${pfx}4;36m${sfx}";    ICya="${pfx}0;96m${sfx}";    BICya="${pfx}1;96m${sfx}";   On_Cya="${pfx}46m${sfx}";    On_ICya="${pfx}0;106m${sfx}";
-Whi="${pfx}0;37m${sfx}";     BWhi="${pfx}1;37m${sfx}";    UWhi="${pfx}4;37m${sfx}";    IWhi="${pfx}0;97m${sfx}";    BIWhi="${pfx}1;97m${sfx}";   On_Whi="${pfx}47m${sfx}";    On_IWhi="${pfx}0;107m${sfx}";
+Bla="${PFX}0;30m${SFX}";     BBla="${PFX}1;30m${SFX}";    UBla="${PFX}4;30m${SFX}";    IBla="${PFX}0;90m${SFX}";    BIBla="${PFX}1;90m${SFX}";   On_Bla="${PFX}40m${SFX}";    On_IBla="${PFX}0;100m${SFX}";
+Red="${PFX}0;31m${SFX}";     BRed="${PFX}1;31m${SFX}";    URed="${PFX}4;31m${SFX}";    IRed="${PFX}0;91m${SFX}";    BIRed="${PFX}1;91m${SFX}";   On_Red="${PFX}41m${SFX}";    On_IRed="${PFX}0;101m${SFX}";
+Gre="${PFX}0;32m${SFX}";     BGre="${PFX}1;32m${SFX}";    UGre="${PFX}4;32m${SFX}";    IGre="${PFX}0;92m${SFX}";    BIGre="${PFX}1;92m${SFX}";   On_Gre="${PFX}42m${SFX}";    On_IGre="${PFX}0;102m${SFX}";
+Yel="${PFX}0;33m${SFX}";     BYel="${PFX}1;33m${SFX}";    UYel="${PFX}4;33m${SFX}";    IYel="${PFX}0;93m${SFX}";    BIYel="${PFX}1;93m${SFX}";   On_Yel="${PFX}43m${SFX}";    On_IYel="${PFX}0;103m${SFX}";
+Blu="${PFX}0;34m${SFX}";     BBlu="${PFX}1;34m${SFX}";    UBlu="${PFX}4;34m${SFX}";    IBlu="${PFX}0;94m${SFX}";    BIBlu="${PFX}1;94m${SFX}";   On_Blu="${PFX}44m${SFX}";    On_IBlu="${PFX}0;104m${SFX}";
+Pur="${PFX}0;35m${SFX}";     BPur="${PFX}1;35m${SFX}";    UPur="${PFX}4;35m${SFX}";    IPur="${PFX}0;95m${SFX}";    BIPur="${PFX}1;95m${SFX}";   On_Pur="${PFX}45m${SFX}";    On_IPur="${PFX}0;105m${SFX}";
+Cya="${PFX}0;36m${SFX}";     BCya="${PFX}1;36m${SFX}";    UCya="${PFX}4;36m${SFX}";    ICya="${PFX}0;96m${SFX}";    BICya="${PFX}1;96m${SFX}";   On_Cya="${PFX}46m${SFX}";    On_ICya="${PFX}0;106m${SFX}";
+Whi="${PFX}0;37m${SFX}";     BWhi="${PFX}1;37m${SFX}";    UWhi="${PFX}4;37m${SFX}";    IWhi="${PFX}0;97m${SFX}";    BIWhi="${PFX}1;97m${SFX}";   On_Whi="${PFX}47m${SFX}";    On_IWhi="${PFX}0;107m${SFX}";
