@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+
 DOTFILES="${HOME}/.dotfiles"
 
 [ -d $DOTFILES ] || git clone https://github.com/michaelavila/dotfiles.git $DOTFILES

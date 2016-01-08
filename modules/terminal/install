@@ -1,2 +1,4 @@
+#!/usr/bin/env sh
+
 mkdir -p $HOME/.terminal/colors
-git clone https://github.com/noahfrederick/Hemisu-Terminal-app.git $HOME/.terminal/colors
+[ -d $HOME/.terminal/colors ] || git clone https://github.com/noahfrederick/Hemisu-Terminal-app.git $HOME/.terminal/colors
