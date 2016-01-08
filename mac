@@ -7,24 +7,27 @@ MAC_MODULES="$MAC_PATH/modules"                   # modularized setups
 lib() { source "$MAC_LIB/$1.sh"; }
 
 lib 'utils'
+lib 'colors'
 
 # ensure that a module is installed and configured to be used
 #
 module() {
-  echo "starting module: ${1}"
+  echo "${Blu}starting module: ${BBlu}${1}${RCol}"
   local module_path="${MAC_MODULES}/${1}"
   [ -d "${MAC_MODULES}" ] || fail "no modules at (${MAC_MODULES})"
   [ -d "${module_path}" ] || fail "module (${module_path}) does not exist!"
   pushd "${module_path}"
 
-  # 1) run any manual installation steps
-  [ -x install ] && ./install
+  # 1) brew up osx goodness
+  [ -f Brewfile ] && brew bundle --file="${module_path}/Brewfile" >/dev/null
+  [ -f Brewfile ] && [ $? -eq 0 ] && echo "* ${Pur}brewed${RCol}"
 
-  # 2) brew up osx goodness
-  [ -f Brewfile ] && brew bundle --file="${module_path}/Brewfile"
+  # 2) run any manual installation steps
+  [ -x install ] && ./install
+  [ -x install ] && [ $? -eq 0 ] && echo "* ${Pur}installed${RCol}"
 
   popd
-  echo "finished module: ${1}"
+  echo "${Gre}finished module: ${BGre}${1}${RCol}"
 }
 
 # not required, but most things depend on homebrew
