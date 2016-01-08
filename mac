@@ -9,20 +9,20 @@ lib 'utils'
 # ensure that a module is installed and configured to be used
 #
 module() {
-  echo "starting module: $1"
-  local module_path="$MAC_MODULES/$1"
-  [ -d "$MAC_MODULES" ] || fail "no modules at ($MAC_MODULES)"
-  [ -d "$module_path" ] || fail "module ($module_path) does not exist!"
-  pushd "$module_path"
+  echo "starting module: ${1}"
+  local module_path="${MAC_MODULES}/${1}"
+  [ -d "${MAC_MODULES}" ] || fail "no modules at (${MAC_MODULES})"
+  [ -d "${module_path}" ] || fail "module (${module_path}) does not exist!"
+  pushd "${module_path}"
 
-  # 1) brew up osx goodness
-  [ -f Brewfile ] && brew bundle --file="$module_path/Brewfile"
-
-  # 2) run any manual installation steps
+  # 1) run any manual installation steps
   [ -x install ] && ./install
 
+  # 2) brew up osx goodness
+  [ -f Brewfile ] && brew bundle --file="${module_path}/Brewfile"
+
   popd
-  echo "finished module: $1"
+  echo "finished module: ${1}"
 }
 
 # not required, but most things depend on homebrew
@@ -30,10 +30,9 @@ module() {
 module 'homebrew'
 
 # to setup the machine, list the modules that apply
+
 module 'dotfiles'
 module 'vim'
 
 module 'java'
 module 'sophos'
-
-rcup
