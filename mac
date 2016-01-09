@@ -1,31 +1,34 @@
 #!/usr/bin/env sh
-
 export MAC_PATH="$(cd "$(dirname "$0")"; pwd -P)" # the location of this script
-export MAC_LIB="$MAC_PATH/lib"                    # things used by macrc
-MAC_MODULES="$MAC_PATH/modules"                   # modularized setups
 
-lib() { source "$MAC_LIB/$1.sh"; }
-export -f lib
-
-lib 'utils'
-lib 'colors'
+source "${MAC_PATH}/lib/utils.sh"
+source "${MAC_PATH}/lib/colors.sh"
 
 # ensure that a module is installed and configured to be used
 #
 module() {
   echo "\n${Blu}starting module: ${BBlu}${1}${RCol}"
-  local module_path="${MAC_MODULES}/${1}"
-  [ -d "${MAC_MODULES}" ] || fail "no modules at (${MAC_MODULES})"
+
+  local module_path="${MAC_PATH}/modules/${1}"
+  [ -d "${MAC_PATH}/modules" ] || fail "no modules at (${MAC_PATH}/modules)"
   [ -d "${module_path}" ] || fail "module (${module_path}) does not exist!"
   pushd "${module_path}"
 
   # 1) brew up osx goodness
-  [ -f Brewfile ] && brew bundle --file="${module_path}/Brewfile" >/dev/null
-  [ -f Brewfile ] && [ $? -eq 0 ] && echo "* ${Pur}brewed${RCol}"
+  if [ -f Brewfile ]; then
+    brew bundle --file="${module_path}/Brewfile" >/dev/null
+    [ $? -eq 0 ] && echo "* ${Pur}brewed${RCol}"
+  else
+    echo "* ${Yel}no brewfile, skipping"
+  fi
 
   # 2) run any manual installation steps
-  [ -x install ] && ./install
-  [ -x install ] && [ $? -eq 0 ] && echo "* ${Pur}installed${RCol}"
+  if [ -x install ]; then
+    ./install
+    [ $? -eq 0 ] && echo "* ${Pur}installed${RCol}"
+  else
+    echo "* ${Yel}no install (or not executable), skipping"
+  fi
 
   popd
 }
