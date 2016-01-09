@@ -2,6 +2,6 @@
 
 DOTFILES="${HOME}/.dotfiles"
 
-[ -d $DOTFILES ] || git clone https://github.com/michaelavila/dotfiles.git $DOTFILES
+[ -d $DOTFILES ] || git clone https://github.com/${GITHUB_USER}/dotfiles.git $DOTFILES
 
 rcup -f -x README*
