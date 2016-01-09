@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 export MAC_PATH="$(cd "$(dirname "$0")"; pwd -P)" # the location of this script
-export MAC_LIB="$MAC_PATH/lib"                           # things used by macrc
+export MAC_LIB="$MAC_PATH/lib"                    # things used by macrc
 MAC_MODULES="$MAC_PATH/modules"                   # modularized setups
 
 lib() { source "$MAC_LIB/$1.sh"; }
