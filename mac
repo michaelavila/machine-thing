@@ -2,7 +2,6 @@
 export MAC_PATH="$(cd "$(dirname "$0")"; pwd -P)" # the location of this script
 
 source "${MAC_PATH}/lib/utils.sh"
-source "${MAC_PATH}/lib/colors.sh"
 
 # ensure that a module is installed and configured to be used
 #
