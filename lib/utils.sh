@@ -1,4 +1,7 @@
-source "$MAC_PATH/lib/colors.sh"
+include() {
+  source "${MAC_PATH}/lib/${1}.sh"
+}
+export -f include
 
 # quiet versions of pushd/popd
 pushd() {
@@ -11,7 +14,7 @@ popd() {
 
 # echo and exit in one command
 fail() {
-  echo "${BRed}$1${RCol}"
+  logerror "$1"
   exit 1
 }
 
@@ -30,3 +33,21 @@ Blu="${PFX}0;34m${SFX}";     BBlu="${PFX}1;34m${SFX}";    UBlu="${PFX}4;34m${SFX
 Pur="${PFX}0;35m${SFX}";     BPur="${PFX}1;35m${SFX}";    UPur="${PFX}4;35m${SFX}";    IPur="${PFX}0;95m${SFX}";    BIPur="${PFX}1;95m${SFX}";   On_Pur="${PFX}45m${SFX}";    On_IPur="${PFX}0;105m${SFX}";
 Cya="${PFX}0;36m${SFX}";     BCya="${PFX}1;36m${SFX}";    UCya="${PFX}4;36m${SFX}";    ICya="${PFX}0;96m${SFX}";    BICya="${PFX}1;96m${SFX}";   On_Cya="${PFX}46m${SFX}";    On_ICya="${PFX}0;106m${SFX}";
 Whi="${PFX}0;37m${SFX}";     BWhi="${PFX}1;37m${SFX}";    UWhi="${PFX}4;37m${SFX}";    IWhi="${PFX}0;97m${SFX}";    BIWhi="${PFX}1;97m${SFX}";   On_Whi="${PFX}47m${SFX}";    On_IWhi="${PFX}0;107m${SFX}";
+
+# Logging
+
+logdebug() {
+  echo "${Blu}[DEBUG] ${1}${RCol}"
+}
+
+loginfo() {
+  echo "${Yel}[INFO] ${1}${RCol}"
+}
+
+logwarn() {
+  echo "${Pur}[WARN] ${1}${RCol}"
+}
+
+logerror() {
+  echo "${Red}[ERROR] ${1}${RCol}"
+}
