@@ -3,6 +3,36 @@ include() {
 }
 export -f include
 
+# ensure that a module is installed and configured to be used
+#
+module() {
+  loginfo "starting module: ${1}"
+
+  local module_path="${MAC_PATH}/modules/${1}"
+  [ -d "${MAC_PATH}/modules" ] || fail "no modules at (${MAC_PATH}/modules)"
+  [ -d "${module_path}" ]      || fail "module (${module_path}) does not exist!"
+  pushd "${module_path}"
+
+  # 1) brew up osx goodness
+  if [ -f Brewfile ]; then
+    brew bundle --file="${module_path}/Brewfile" >/dev/null
+    [ $? -eq 0 ] && loginfo "brewed"
+  else
+    logdebug "no brewfile, skipping"
+  fi
+
+  # 2) run any manual installation steps
+  if [ -x install ]; then
+    ./install
+    [ $? -eq 0 ] && loginfo "installed"
+  else
+    logdebug "no install (or not executable), skipping"
+  fi
+
+  popd
+}
+export -f module
+
 # quiet versions of pushd/popd
 pushd() {
   command pushd "$@" > /dev/null
@@ -24,7 +54,7 @@ SFX=''
 
 RCol="${PFX}0m${SFX}"    # Text Reset
 
-# Regular           	     Bold                         Underline                    High Intensity               BoldHigh Intens              Background                   High Intensity Backgrounds
+# Regular           	       Bold                         Underline                    High Intensity               BoldHigh Intens              Background                   High Intensity Backgrounds
 Bla="${PFX}0;30m${SFX}";     BBla="${PFX}1;30m${SFX}";    UBla="${PFX}4;30m${SFX}";    IBla="${PFX}0;90m${SFX}";    BIBla="${PFX}1;90m${SFX}";   On_Bla="${PFX}40m${SFX}";    On_IBla="${PFX}0;100m${SFX}";
 Red="${PFX}0;31m${SFX}";     BRed="${PFX}1;31m${SFX}";    URed="${PFX}4;31m${SFX}";    IRed="${PFX}0;91m${SFX}";    BIRed="${PFX}1;91m${SFX}";   On_Red="${PFX}41m${SFX}";    On_IRed="${PFX}0;101m${SFX}";
 Gre="${PFX}0;32m${SFX}";     BGre="${PFX}1;32m${SFX}";    UGre="${PFX}4;32m${SFX}";    IGre="${PFX}0;92m${SFX}";    BIGre="${PFX}1;92m${SFX}";   On_Gre="${PFX}42m${SFX}";    On_IGre="${PFX}0;102m${SFX}";
@@ -37,17 +67,17 @@ Whi="${PFX}0;37m${SFX}";     BWhi="${PFX}1;37m${SFX}";    UWhi="${PFX}4;37m${SFX
 # Logging
 
 logdebug() {
-  echo "${Blu}[DEBUG] ${1}${RCol}"
+  echo "${BBlu}[DEBUG]${IBlu} ${1}${RCol}"
 }
 
 loginfo() {
-  echo "${Yel}[INFO] ${1}${RCol}"
+  echo "${BYel}[INFO]${IYel} ${1}${RCol}"
 }
 
 logwarn() {
-  echo "${Pur}[WARN] ${1}${RCol}"
+  echo "${BPur}[WARN]${IPur} ${1}${RCol}"
 }
 
 logerror() {
-  echo "${Red}[ERROR] ${1}${RCol}"
+  echo "${BRed}[ERROR]${IRed} ${1}${RCol}"
 }

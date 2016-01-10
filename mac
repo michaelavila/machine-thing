@@ -1,47 +1,14 @@
 #!/usr/bin/env sh
 export MAC_PATH="$(cd "$(dirname "$0")"; pwd -P)" # the location of this script
-
 source "${MAC_PATH}/lib/utils.sh"
 
-# ensure that a module is installed and configured to be used
-#
-module() {
-  loginfo "starting module: ${1}"
-
-  local module_path="${MAC_PATH}/modules/${1}"
-  [ -d "${MAC_PATH}/modules" ] || fail "no modules at (${MAC_PATH}/modules)"
-  [ -d "${module_path}" ]      || fail "module (${module_path}) does not exist!"
-  pushd "${module_path}"
-
-  # 1) brew up osx goodness
-  if [ -f Brewfile ]; then
-    brew bundle --file="${module_path}/Brewfile" >/dev/null
-    [ $? -eq 0 ] && loginfo "brewed"
-  else
-    logdebug "no brewfile, skipping"
-  fi
-
-  # 2) run any manual installation steps
-  if [ -x install ]; then
-    ./install
-    [ $? -eq 0 ] && loginfo "installed"
-  else
-    logdebug "no install (or not executable), skipping"
-  fi
-
-  popd
-}
-
-# not required, but most things depend on homebrew
-
+# required
 module 'homebrew'
 
 # to setup the machine, list the modules that apply
-
 module 'dotfiles'
 module 'terminal'
 module 'vim'
-
 module 'java'
 module 'sophos'
 
