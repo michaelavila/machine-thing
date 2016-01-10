@@ -67,7 +67,7 @@ Whi="${PFX}0;37m${SFX}";     BWhi="${PFX}1;37m${SFX}";    UWhi="${PFX}4;37m${SFX
 # Logging
 
 logdebug() {
-  echo "${BBlu}[DEBUG]${IBlu} ${1}${RCol}"
+  echo "${BCya}[DEBUG]${Cya} ${1}${RCol}"
 }
 
 loginfo() {

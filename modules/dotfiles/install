@@ -1,7 +1,12 @@
 #!/usr/bin/env sh
 
+include 'utils'
+
 DOTFILES="${HOME}/.dotfiles"
 
-[ -d $DOTFILES ] || git clone https://github.com/${GITHUB_USER}/dotfiles.git $DOTFILES
+if [ ! -d $DOTFILES ]; then
+  logdebug "using github username: ${GITHUB_USER:?Need to set GITHUB_USER environment variable}"
+  git clone https://github.com/${GITHUB_USER}/dotfiles.git $DOTFILES
+fi
 
 rcup -f -x README*
