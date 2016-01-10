@@ -6,7 +6,7 @@ export -f include
 # ensure that a module is installed and configured to be used
 #
 module() {
-  loginfo "starting module: ${1}"
+  loginfo "starting module: ${BIYel}${1}"
 
   local module_path="${MAC_PATH}/modules/${1}"
   [ -d "${MAC_PATH}/modules" ] || fail "no modules at (${MAC_PATH}/modules)"

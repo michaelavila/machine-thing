@@ -7,9 +7,10 @@ module 'homebrew'
 
 # to setup the machine, list the modules that apply
 module 'dotfiles'
+module 'git'
 module 'terminal'
 module 'vim'
 module 'java'
 module 'sophos'
 
-echo "\n${BGre}Your Mac is ready.${RCol}\n"
+loginfo "your mac is ready."
