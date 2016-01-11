@@ -7,8 +7,7 @@ install_or_update_homebrew() {
     curl -fsS 'https://git.io/pVOl' | ruby
     logdebug "brew installed"
   else
-    brew update >/dev/null
-    logdebug "brew installed"
+    logdebug "`brew update`"
   fi
 }
 
