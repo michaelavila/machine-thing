@@ -15,7 +15,7 @@ module() {
 
   # 1) brew up osx goodness
   if [ -f Brewfile ]; then
-    brew bundle --file="${module_path}/Brewfile" >/dev/null
+    brew bundle --file="${module_path}/Brewfile" >/tmp/brew
     [ $? -eq 0 ] && loginfo "brewed"
   else
     logdebug "no brewfile, skipping"
@@ -80,4 +80,14 @@ logwarn() {
 
 logerror() {
   echo "${BRed}[ERROR]${IRed} ${1}${RCol}"
+}
+
+# Changing Files
+
+append_if_not_present() {
+  if [ "$3" -eq 1 ]; then
+    sudo grep -q -F "$1" "$2" || echo "$1" | sudo tee -a "$2"
+  else
+    grep -q -F "$1" "$2" || echo "$1" >> "$2"
+  fi
 }

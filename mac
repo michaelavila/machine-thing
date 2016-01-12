@@ -12,5 +12,6 @@ module 'terminal'
 module 'vim'
 module 'java'
 module 'sophos'
+module 'zsh'
 
 loginfo "your mac is ready."

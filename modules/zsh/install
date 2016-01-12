@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+include 'utils'
+
+zsh_bin="`brew --prefix`/bin/zsh"
+
+append_if_not_present "$zsh_bin" "/etc/shells" 1
+chsh -s "$zsh_bin"
