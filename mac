@@ -8,6 +8,7 @@ module 'homebrew'
 # to setup the machine, list the modules that apply
 module 'dotfiles'
 module 'git'
+module 'gpg'
 module 'terminal'
 module 'vim'
 module 'java'
